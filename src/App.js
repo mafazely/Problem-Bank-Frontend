@@ -1,4 +1,4 @@
-import './assets/styles/App.css';
+import './theme/styles/style.scss';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider, StylesProvider } from '@material-ui/styles';
 import { SnackbarProvider } from 'notistack';
@@ -9,7 +9,6 @@ import Notifier from './components/Notifications/Notifications';
 import { initRedirect } from './redux/actions/redirect';
 import Root from './root/Root';
 import RTLMuiTheme from './theme/RTLMuiTheme';
-import translations from './translations';
 import jss from './utils/jssRTL';
 
 const App = ({ redirectTo, forceRedirect, initRedirect }) => {
@@ -29,17 +28,15 @@ const App = ({ redirectTo, forceRedirect, initRedirect }) => {
   }, [redirectTo, forceRedirect, initRedirect, history]);
 
   return (
-    <IntlProvider translations={translations}>
-      <ThemeProvider theme={RTLMuiTheme}>
-        <StylesProvider jss={jss}>
-          <SnackbarProvider>
-            <Notifier />
-            <CssBaseline />
-            <Root />
-          </SnackbarProvider>
-        </StylesProvider>
-      </ThemeProvider>
-    </IntlProvider>
+    <ThemeProvider theme={RTLMuiTheme}>
+      <StylesProvider jss={jss}>
+        <SnackbarProvider>
+          <Notifier />
+          <CssBaseline />
+          <Root />
+        </SnackbarProvider>
+      </StylesProvider>
+    </ThemeProvider>
   );
 };
 

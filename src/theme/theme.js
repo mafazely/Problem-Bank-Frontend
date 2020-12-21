@@ -1,4 +1,4 @@
-import variables from '../assets/core/MuiVariables';
+import variables from './MuiVariables';
 
 const theme = {
   palette: {

@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from '../actionTypes';
 
 export const enqueueSnackbar = ({
   key = new Date().getTime() + Math.random(),

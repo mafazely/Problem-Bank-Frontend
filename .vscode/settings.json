@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "Appbar",
+    "Interkarsolar",
     "Konva",
     "Tabbar",
     "clsx",
@@ -8,5 +9,5 @@
     "scrollable",
     "tinymce",
     "undoable"
-     ]
+  ]
 }

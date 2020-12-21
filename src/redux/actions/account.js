@@ -1,5 +1,5 @@
 import { CALL_API } from '../middleware/api/api';
-import * as actionTypes from './actionTypes';
+import * as actionTypes from '../actionTypes';
 import * as URLs from './urls';
 
 export const register = ({ name, phone, password, userType = 'STUDENT' }) => ({

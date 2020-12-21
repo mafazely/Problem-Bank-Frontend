@@ -19,7 +19,6 @@ const Notifications = ({ notifications = [], removeSnackbar }) => {
     displayed = [...displayed.filter((key) => id !== key)];
   };
 
-  const t = useTranslate();
 
   React.useEffect(() => {
     notifications.forEach(
@@ -54,7 +53,7 @@ const Notifications = ({ notifications = [], removeSnackbar }) => {
                 removeSnackbar(key);
                 removeDisplayed(key);
               }}>
-              {t('dismiss')}
+                حله
             </Button>
           ),
         });
@@ -62,7 +61,7 @@ const Notifications = ({ notifications = [], removeSnackbar }) => {
         storeDisplayed(key);
       }
     );
-  }, [notifications, closeSnackbar, enqueueSnackbar, t, removeSnackbar]);
+  }, [notifications, closeSnackbar, enqueueSnackbar, removeSnackbar]);
 
   return null;
 };
