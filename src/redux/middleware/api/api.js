@@ -1,76 +1,66 @@
-import { normalize } from 'normalizr';
+import fetchApi from './fetchApi';
+import * as actionTypes from '../../actionTypes';
 
-import fetchApi from '../../../utils/fetchApi';
-import * as actionTypes from '../../actions/actionTypes';
+export const CALL_API = 'Call API';
 
-export const CALL_API = 'callAPI';
-
-const getRequestOptions = ({ fetchOptions, token }) => ({
-  ...fetchOptions,
-  headers: {
-    ...(!fetchOptions.dontContentType && {
-      'Content-Type': 'application/json',
-    }),
-    ...fetchOptions.headers,
-    ...(token && { Authorization: token }),
-  },
-});
-
-const onSuccess = ({
-  response,
-  schema,
-  actionWithoutCallAPI,
-  successType,
-  next,
-}) => {
-  response = schema ? normalize(response, schema) : response;
-  return next({
-    ...actionWithoutCallAPI,
-    response,
-    type: successType,
-  });
-};
-
-const onFailure = ({ error, actionWithoutCallAPI, failureType, next }) => {
-  if (error.message === 'TOKEN_EXPIRED') {
-    return next({
-      type: actionTypes.LOGOUT_REQUEST,
-    });
-  }
-
-  return next({
-    ...actionWithoutCallAPI,
-    type: failureType,
-    error: error.message || 'خطایی رخ داده است!',
-  });
-};
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default ({ getState }) => (next) => (action) => {
-  const { callAPI, ...actionWithoutCallAPI } = action;
+export default ({ getState }) => (next) => async (action) => {
+  const callAPI = action[CALL_API];
   if (typeof callAPI === 'undefined') {
     return next(action);
   }
 
-  const { url, types, schema, fetchOptions } = callAPI;
-  const [requestType, successType, failureType] = types;
-  next({ ...actionWithoutCallAPI, type: requestType });
-  const requestOptions = getRequestOptions({
-    fetchOptions,
-    token: 'JWT ' + getState().account.token,
-  });
+  const actionWith = (data) => {
+    const finalAction = Object.assign({}, action, data);
+    delete finalAction[CALL_API];
+    return finalAction;
+  };
 
-  return fetchApi(url, requestOptions)
-    .then((response) =>
-      onSuccess({
+  const { fetchOptions } = callAPI;
+  const { url, types, payload } = callAPI;
+  const [requestType, successType, failureType] = types;
+  next(actionWith({ payload, type: requestType }));
+
+  try {
+    fetchOptions.body = JSON.stringify(fetchOptions.body);
+
+    if (!fetchOptions.dontContentType) {
+      fetchOptions.headers = {
+        'Content-Type': 'application/json',
+        ...fetchOptions.headers,
+      };
+    }
+    const account = getState().account;
+    if (!!account && !!account.token) {
+      fetchOptions.headers = {
+        ...fetchOptions.headers,
+        Authorization: 'Token ' + account.token,
+      };
+    }
+
+    const response = await fetchApi(url, fetchOptions);
+    return next(
+      actionWith({
+        payload,
         response,
-        schema,
-        actionWithoutCallAPI,
-        successType,
-        next,
+        type: successType,
       })
-    )
-    .catch((error) =>
-      onFailure({ error, actionWithoutCallAPI, failureType, next })
     );
+  } catch (error) {
+    if (error.message === 'TOKEN EXPIRED') {
+      return next(
+        actionWith({
+          payload,
+          type: actionTypes.LOGOUT_REQUEST,
+          error: error.message || 'Something bad happened!',
+        })
+      );
+    }
+    return next(
+      actionWith({
+        payload,
+        type: failureType,
+        error: error.message || 'Something bad happened!',
+      })
+    );
+  }
 };

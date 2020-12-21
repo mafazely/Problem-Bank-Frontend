@@ -1,5 +1,5 @@
 import reduxWebsocket from '@giantmachines/redux-websocket';
-import { applyMiddleware,createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import api from '../middleware/api/api';

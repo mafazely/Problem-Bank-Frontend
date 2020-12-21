@@ -9,7 +9,6 @@ import { SnackbarProvider } from 'notistack';
 import Pushe from 'pushe-webpush';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { IntlProvider } from 'react-redux-multilingual';
 import { useHistory } from 'react-router-dom';
 import Notifier from './components/Notifications/Notifications';
 import { initRedirect } from './redux/actions/redirect';

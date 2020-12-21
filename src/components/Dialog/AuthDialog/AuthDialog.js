@@ -14,7 +14,6 @@ import { green } from '@material-ui/core/colors';
 import { Close as CloseIcon } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useHistory } from 'react-router-dom';
 
 import { login } from '../../../redux/actions/account';
@@ -56,7 +55,6 @@ function AuthDialog({
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const classes = useStyles();
-  const t = useTranslate();
   const history = useHistory();
 
   useEffect(() => {
@@ -134,8 +132,8 @@ function AuthDialog({
                         className={classes.buttonProgress}
                       />
                     ) : (
-                      t('login')
-                    )}
+                        'ورود'
+                      )}
                   </Button>
                 </Grid>
               </Grid>

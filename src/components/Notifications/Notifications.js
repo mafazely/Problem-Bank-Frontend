@@ -3,7 +3,6 @@ import Grow from '@material-ui/core/Grow';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { connect } from 'react-redux';
-import { useTranslate } from 'react-redux-multilingual/lib/context';
 
 import { removeSnackbar } from '../../redux/actions/notifications';
 

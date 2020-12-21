@@ -1,6 +1,4 @@
-import { IntlReducer as Intl } from 'react-redux-multilingual';
 import { combineReducers } from 'redux';
-
 import account from './account';
 import currentState from './currentState';
 import mentor from './mentor';
