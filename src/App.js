@@ -1,17 +1,34 @@
 import './theme/styles/style.scss';
+
 import { CssBaseline } from '@material-ui/core';
-import { ThemeProvider, StylesProvider } from '@material-ui/styles';
+import { StylesProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import { SnackbarProvider } from 'notistack';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { IntlProvider } from 'react-redux-multilingual';
 import { useHistory } from 'react-router-dom';
+
 import Notifier from './components/Notifications/Notifications';
 import { initRedirect } from './redux/actions/redirect';
 import Root from './root/Root';
+import MuiTheme from './theme/MuiTheme';
 import RTLMuiTheme from './theme/RTLMuiTheme';
+import translations from './translations';
 import jss from './utils/jssRTL';
+// import Pushe from 'pushe-webpush';
+// Pushe.init('ld838ykvn2n75poe');
+// Pushe.subscribe();
 
-const App = ({ redirectTo, forceRedirect, initRedirect }) => {
+const AppRout = () => (
+  <SnackbarProvider>
+    <Notifier />
+    <CssBaseline />
+    <Root />
+  </SnackbarProvider>
+);
+
+const App = ({ dir, redirectTo, forceRedirect, initRedirect }) => {
   const history = useHistory();
   useEffect(() => {
     if (redirectTo !== null) {
@@ -27,20 +44,29 @@ const App = ({ redirectTo, forceRedirect, initRedirect }) => {
     }
   }, [redirectTo, forceRedirect, initRedirect, history]);
 
+  useEffect(() => {
+    document.body.dir = dir;
+  }, [dir]);
+
   return (
-    <ThemeProvider theme={RTLMuiTheme}>
-      <StylesProvider jss={jss}>
-        <SnackbarProvider>
-          <Notifier />
-          <CssBaseline />
-          <Root />
-        </SnackbarProvider>
-      </StylesProvider>
-    </ThemeProvider>
+    <IntlProvider translations={translations}>
+      {dir === 'rtl' ? (
+        <ThemeProvider theme={RTLMuiTheme}>
+          <StylesProvider jss={jss}>
+            <AppRout />
+          </StylesProvider>
+        </ThemeProvider>
+      ) : (
+          <ThemeProvider theme={MuiTheme}>
+            <AppRout />
+          </ThemeProvider>
+        )}
+    </IntlProvider>
   );
 };
 
 const mapStateToProps = (state) => ({
+  dir: state.Intl.locale === 'fa' ? 'rtl' : 'ltr',
   redirectTo: state.redirect.redirectTo,
   forceRedirect: state.redirect.force,
 });
