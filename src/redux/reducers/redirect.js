@@ -1,4 +1,4 @@
-import * as actionTypes from '../../redux copy/actionTypes';
+import * as actionTypes from '../../redux/actionTypes';
 
 const initState = {
   redirectTo: null,
@@ -6,7 +6,7 @@ const initState = {
 
 function redirect(state = initState, action) {
   switch (action.type) {
-    case actionTypes.REGISTER_SUCCESS:
+    case actionTypes.CREATE_ACCOUNT_SUCCESS:
       return { redirectTo: '/' };
 
     case actionTypes.LOGIN_SUCCESS:

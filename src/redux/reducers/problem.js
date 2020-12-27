@@ -1,4 +1,4 @@
-import * as actionTypes from '../../redux copy/actionTypes';
+import * as actionTypes from '../../redux/actionTypes';
 
 const initState = {
   isFetching: false,

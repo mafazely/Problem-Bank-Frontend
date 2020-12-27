@@ -1,4 +1,4 @@
-import * as actionTypes from '../../redux copy/actionTypes';
+import * as actionTypes from '../../redux/actionTypes';
 
 function properties(
   state = { tags: [], subtags: [], events: [], sources: [], isFetching: false },
