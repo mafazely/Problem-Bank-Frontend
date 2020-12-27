@@ -1,39 +1,23 @@
 export const ROOT =
   process.env.NODE_ENV === 'production'
-    ? 'https://a-lympiad.rastaiha.ir/api/'
-    : 'https://a-lympiad.rastaiha.ir/api/';
+    ? 'https://bank.karsooghmehregan.ir/api/'
+    : 'https://bank.karsooghmehregan.ir/api/'
 
-export const LOGIN = ROOT.concat('auth/token/obtain/');
-export const LOGOUT = ROOT.concat('auth/logout/');
-export const TEAMMATES = ROOT.concat('/'); //todo
-export const STUDENT_WORKSHOPS = ROOT.concat('/'); //todo
-export const CALL_MENTOR = ROOT.concat('fsm/requestmentor/');
-export const GO_FORWARD = ROOT.concat('fsm/goforward/');
-export const GO_BACKWARD = ROOT.concat('fsm/gobackward/');
+export const LOGIN = ROOT.concat('signin/');
+export const CREATE_ACCOUNT = ROOT.concat('signup/');
+export const LOGOUT = ROOT.concat('signout/');
 
-export const UNREAD_NOTIFICATIONS = ROOT.concat(
-  'notifications/api/unread_list/'
-);
-export const CREATE_WORKSHOP = ROOT.concat('fsm/fsm/');
-export const CREATE_STATE = ROOT.concat('fsm/state/');
+export const GET_PROBLEM = ROOT.concat('question/');
+export const SUBMIT_PROBLEM = ROOT.concat('question/');
 
-export const ALL_WORKSHOPS = ROOT.concat('fsm/fsm/');
-export const GET_WORKSHOP = (id) => ROOT.concat(`fsm/fsm/${id}/`);
-export const MENTOR_GET_WORKSHOP = ROOT.concat(`fsm/mentorgetplayerfsm/`);
+export const GET_COMMENT = ROOT.concat('comment/');
+export const SUBMIT_COMMENT = ROOT.concat('comment/');
 
-export const MENTOR_GET_CURRENT_STATE = ROOT.concat(
-  `fsm/mentorgetplayerstate/`
-);
-export const PARTICIPANT_GET_CURRENT_STATE = ROOT.concat(
-  `fsm/getcurrentstate/`
-);
-export const DELETE_STATE = (id) => ROOT.concat(`fsm/state/${id}/`);
-export const WORKSHOP_TEAMS = ROOT.concat('fsm/workshopplayers/');
-export const TEAM_ANSWERS = ROOT.concat('fsm/submittedanswers/');
-export const VISIT_PLAYER_WORKSHOP = ROOT.concat('fsm/visitteam/');
+export const GET_PROPERTY = ROOT.concat('tag/');
+export const GET_SUBTAGS = ROOT.concat('subtag/');
+export const GET_EVENTS = ROOT.concat('event/');
+export const GET_SOURCES = ROOT.concat('source/');
 
-export const SEND_ANSWER = ROOT.concat('fsm/sendanswer/');
-export const START_WORKSHOP = ROOT.concat('fsm/startWorkshop/');
-
-export const CREATE_WIDGET = ROOT.concat('fsm/widget/');
-export const DELETE_WIDGET = (id) => ROOT.concat(`fsm/widget/${id}/`);
+export const GET_ACCOUNT_BY_USERNAME = ROOT.concat('accountByUsername/');
+export const GET_PROBLEMS_LIST = ROOT.concat('qfilter/');
+export const GET_USER_DATA = ROOT.concat('account/');

@@ -1,9 +1,33 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../../redux copy/actionTypes';
 
-const initState = { token: null, user: {} };
+const initialState = {
+  isFetching: false,
+  token: '',
+}
 
-function account(state = initState, action) {
+function account(state = initialState, action) {
   switch (action.type) {
+    case actionTypes.REGISTER_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+
+    case actionTypes.REGISTER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        token: action.response.token,
+      };
+
+    case actionTypes.REGISTER_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+      };
+
+      //#######################
+
     case actionTypes.LOGIN_REQUEST:
       return {
         ...state,
@@ -14,18 +38,22 @@ function account(state = initState, action) {
       return {
         ...state,
         isFetching: false,
-        token: action.response.access,
-        user: action.response.user_info,
-      };
+        token: action.response.token,
+      }
 
     case actionTypes.LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
-      };
+      }
+
+    //#######################
 
     case actionTypes.LOGOUT_REQUEST:
-      return initState;
+      return {
+        ...state,
+        token: '',
+      };
 
     default:
       return state;

@@ -10,7 +10,6 @@ const Root = () => {
     <>
       <Switch>
         <Route path="/loading/"></Route>
-        <Route path="/dashboard/" component={dashboard} />
         <Route path="/" component={Homepage} />
       </Switch>
       <DevTools />

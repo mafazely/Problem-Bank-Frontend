@@ -7,7 +7,7 @@ const defaultState = {
 export default function notifications(state = defaultState, action) {
   switch (action.type) {
     case actionTypes.ENQUEUE_SNACKBAR:
-      return enquequeSnackbar({ state, ...action });
+      return enqueueSnackbar({ state, ...action });
 
     case actionTypes.CLOSE_SNACKBAR:
       return {
@@ -61,7 +61,7 @@ export default function notifications(state = defaultState, action) {
   }
 }
 
-const enquequeSnackbar = ({ state, notification }) => ({
+const enqueueSnackbar = ({ state, notification }) => ({
   ...state,
   notifications: [
     ...state.notifications,
